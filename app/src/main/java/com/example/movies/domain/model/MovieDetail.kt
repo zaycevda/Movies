@@ -8,5 +8,5 @@ data class MovieDetail(
     val description: String?,
     val premiere: Int?,
     val staff: List<Staff>,
-    val video: String
+    val video: String?
 )

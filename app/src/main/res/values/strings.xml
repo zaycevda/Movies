@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Movies</string>
+    <string name="search">Search</string>
+    <string name="watch_trailer">Смотреть трейлер</string>
+    <string name="premiere">Год выхода: %s</string>
+    <string name="movie_info">Информация о фильме</string>
+    <string name="movies">Список фильмов</string>
 </resources>

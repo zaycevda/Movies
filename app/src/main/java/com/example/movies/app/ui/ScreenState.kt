@@ -1,4 +1,4 @@
-package com.example.movies.app.viewmodel
+package com.example.movies.app.ui
 
 private typealias OnError = (Throwable) -> Unit
 private typealias OnLoading = () -> Unit

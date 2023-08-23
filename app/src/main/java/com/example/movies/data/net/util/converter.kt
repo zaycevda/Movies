@@ -5,7 +5,7 @@ import com.example.movies.data.net.model.MovieModel
 import com.example.movies.data.net.model.StaffModel
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.model.MovieDetail
-import com.example.movies.domain.model.Staff
+import com.example.movies.domain.model.Actor
 
 fun MovieModel.toMovie() =
     Movie(
@@ -16,7 +16,7 @@ fun MovieModel.toMovie() =
     )
 
 fun MovieDetailModel.toMovieDetail(
-    staff: List<Staff>,
+    actors: List<Actor>,
     video: String?
 ) =
     MovieDetail(
@@ -26,15 +26,14 @@ fun MovieDetailModel.toMovieDetail(
         rating = rating,
         description = description,
         premiere = premiere,
-        staff = staff,
+        actors = actors,
         video = video
     )
 
 fun StaffModel.toStaff() =
-    Staff(
+    Actor(
         id = id,
         image = image,
         name = name,
-        character = character,
-        profession = profession
+        character = character
     )

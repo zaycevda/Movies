@@ -43,6 +43,7 @@ android {
     }
     buildFeatures {
         buildConfig = true
+        viewBinding = true
     }
 }
 
@@ -58,11 +59,17 @@ dependencies {
     // gson
     implementation("com.google.code.gson:gson:2.9.0")
 
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.14.2")
+
     // ktx
     implementation("androidx.core:core-ktx:1.10.1")
 
     // lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+
+    // navigation
+    implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
 
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -76,4 +83,7 @@ dependencies {
     // ui
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+
+    // viewbinding delegate
+    implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
 }

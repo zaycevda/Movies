@@ -2,9 +2,10 @@ package com.example.movies.app.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movies.app.viewmodel.ScreenState.ErrorScreenState
-import com.example.movies.app.viewmodel.ScreenState.LoadingScreenState
-import com.example.movies.app.viewmodel.ScreenState.SuccessScreenState
+import com.example.movies.app.ui.ScreenState
+import com.example.movies.app.ui.ScreenState.ErrorScreenState
+import com.example.movies.app.ui.ScreenState.LoadingScreenState
+import com.example.movies.app.ui.ScreenState.SuccessScreenState
 import com.example.movies.domain.model.MovieDetail
 import com.example.movies.domain.usecase.GetMovieDetailUseCase
 import dagger.assisted.AssistedFactory
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 class MovieDetailsViewModel @AssistedInject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase
 ) : ViewModel() {
+
     private val _movieDetail = MutableStateFlow<ScreenState<MovieDetail>>(LoadingScreenState())
     val movieDetail = _movieDetail.asStateFlow()
 

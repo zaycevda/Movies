@@ -11,6 +11,6 @@ data class StaffModel(
     val name: String?,
     @SerializedName("description")
     val character: String?,
-    @SerializedName("professionText")
+    @SerializedName("professionKey")
     val profession: String
 )

@@ -7,6 +7,6 @@ data class MovieDetail(
     val rating: Double?,
     val description: String?,
     val premiere: Int?,
-    val staff: List<Staff>,
+    val actors: List<Actor>,
     val video: String?
 )

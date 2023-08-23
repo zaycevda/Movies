@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/iv_image"
+        android:layout_width="81dp"
+        android:layout_height="128.25dp"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/tv_character"
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        tools:text="Neo" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="81dp"
+        android:layout_height="wrap_content"
+        tools:text="Киану Ривз" />
+
+</LinearLayout>

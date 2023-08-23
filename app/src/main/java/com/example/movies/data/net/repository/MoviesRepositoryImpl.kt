@@ -4,6 +4,7 @@ import com.example.movies.data.net.service.MoviesApi
 import com.example.movies.data.net.util.toMovie
 import com.example.movies.data.net.util.toMovieDetail
 import com.example.movies.data.net.util.toStaff
+import com.example.movies.domain.model.Actor
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.model.MovieDetail
 import com.example.movies.domain.repository.MoviesRepository
@@ -20,7 +21,11 @@ class MoviesRepositoryImpl(private val api: MoviesApi) : MoviesRepository {
         val staffModels = api.getStaff(id = id)
         val videosResponse = api.getVideos(id = id)
 
-        val staff = staffModels.map { staffModel -> staffModel.toStaff() }
+        val actors = mutableListOf<Actor>()
+
+        staffModels.forEach { staffModel ->
+            if (staffModel.profession == "ACTOR") actors.add(staffModel.toStaff())
+        }
 
         val video =
             if (videosResponse.count != 0) {
@@ -29,7 +34,7 @@ class MoviesRepositoryImpl(private val api: MoviesApi) : MoviesRepository {
             } else null
 
         return movieDetailModel.toMovieDetail(
-            staff = staff,
+            actors = actors,
             video = video
         )
     }

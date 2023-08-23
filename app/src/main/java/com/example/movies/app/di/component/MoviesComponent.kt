@@ -11,7 +11,7 @@ import dagger.Component
     dependencies = [AppComponent::class],
     modules = [MoviesModule::class]
 )
-interface MoviesComponent {
+interface MoviesComponent : DiComponent {
     fun moviesViewModel(): MoviesViewModel.Factory
     fun movieDetailsViewModel(): MovieDetailsViewModel.Factory
 }

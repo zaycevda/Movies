@@ -6,5 +6,9 @@ import javax.inject.Singleton
 
 @Singleton
 class GetMoviesUseCase @Inject constructor(private val repository: MoviesRepository) {
-    suspend fun execute() = repository.getMovies()
+    suspend fun execute(keyword: String = EMPTY) = repository.getMovies(keyword = keyword)
+
+    private companion object {
+        private const val EMPTY = ""
+    }
 }

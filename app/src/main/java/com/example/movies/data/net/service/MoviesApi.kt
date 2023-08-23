@@ -16,7 +16,9 @@ interface MoviesApi {
         "$X_API_KEY: $API_KEY"
     )
     @GET(MOVIES)
-    suspend fun getMovies(): MoviesResponse
+    suspend fun getMovies(
+        @Query(KEYWORD) keyword: String = EMPTY
+    ): MoviesResponse
 
     @Headers(
         "$ACCEPT: $JSON",
@@ -42,9 +44,11 @@ interface MoviesApi {
     private companion object {
         private const val ACCEPT = "accept"
         private const val API_KEY = BuildConfig.API_KEY
+        private const val EMPTY = ""
         private const val FILM_ID = "filmId"
         private const val ID = "id"
         private const val JSON = "application/json"
+        private const val KEYWORD = "keyword"
         private const val MOVIES = "/api/v2.2/films"
         private const val MOVIE_DETAIL = "/api/v2.2/films/{id}"
         private const val STAFF = "/api/v1/staff"

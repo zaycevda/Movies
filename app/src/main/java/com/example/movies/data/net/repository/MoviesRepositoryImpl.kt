@@ -10,8 +10,8 @@ import com.example.movies.domain.model.MovieDetail
 import com.example.movies.domain.repository.MoviesRepository
 
 class MoviesRepositoryImpl(private val api: MoviesApi) : MoviesRepository {
-    override suspend fun getMovies(): List<Movie> {
-        val moviesResponse = api.getMovies()
+    override suspend fun getMovies(keyword: String): List<Movie> {
+        val moviesResponse = api.getMovies(keyword = keyword)
         val movieModels = moviesResponse.movies
         return movieModels.map { movieModel -> movieModel.toMovie() }
     }
@@ -24,7 +24,7 @@ class MoviesRepositoryImpl(private val api: MoviesApi) : MoviesRepository {
         val actors = mutableListOf<Actor>()
 
         staffModels.forEach { staffModel ->
-            if (staffModel.profession == "ACTOR") actors.add(staffModel.toStaff())
+            if (staffModel.profession == ACTOR) actors.add(staffModel.toStaff())
         }
 
         val video =
@@ -40,6 +40,7 @@ class MoviesRepositoryImpl(private val api: MoviesApi) : MoviesRepository {
     }
 
     private companion object {
+        private const val ACTOR = "ACTOR"
         private const val YOUTUBE = "YOUTUBE"
         private const val KINOPOISK_WIDGET = "KINOPOISK_WIDGET"
     }

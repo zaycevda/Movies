@@ -7,21 +7,10 @@
     android:orientation="vertical"
     tools:context=".app.ui.MoviesFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_movies"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_movies"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/movies"
-            android:textColor="@color/black"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="?android:attr/actionBarSize" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_movies"

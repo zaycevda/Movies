@@ -2,6 +2,7 @@ package com.example.movies.app.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -34,6 +35,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
         initAdapter()
         getMovies()
+        initSearch()
     }
 
     override fun onDestroyView() {
@@ -51,8 +53,8 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         binding.rvMovies.adapter = adapter
     }
 
-    private fun getMovies() {
-        viewModel.getMovies()
+    private fun getMovies(keyword: String = EMPTY) {
+        viewModel.getMovies(keyword = keyword)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.movies.collect { state ->
@@ -67,5 +69,24 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                 }
             }
         }
+    }
+
+    private fun initSearch() {
+        binding.svMovies.clearFocus()
+        binding.svMovies.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?) = false
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    newText?.let { keyword ->
+                        getMovies(keyword = keyword)
+                    }
+                    return false
+                }
+            }
+        )
+    }
+
+    private companion object {
+        private const val EMPTY = ""
     }
 }

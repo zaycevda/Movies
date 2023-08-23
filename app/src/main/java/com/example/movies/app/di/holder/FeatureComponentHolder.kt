@@ -7,9 +7,7 @@ abstract class FeatureComponentHolder<Component: DiComponent> {
 
     private var component: WeakReference<Component>? = null
 
-    fun get(): Component {
-        return component?.get() ?: build().also { set(it) }
-    }
+    fun get() = component?.get() ?: build().also { set(it) }
 
     fun set(component: Component) {
         this.component = WeakReference(component)

@@ -22,14 +22,14 @@ class MoviesViewModel @AssistedInject constructor(
     private val _movies = MutableStateFlow<ScreenState<List<Movie>>>(LoadingScreenState())
     val movies = _movies.asStateFlow()
 
-    fun getMovies() {
+    fun getMovies(keyword: String = EMPTY) {
         val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
             _movies.value = ErrorScreenState(throwable = throwable)
         }
 
         viewModelScope.launch(exceptionHandler) {
             _movies.value = LoadingScreenState()
-            val movies = getMoviesUseCase.execute()
+            val movies = getMoviesUseCase.execute(keyword = keyword)
             _movies.value = SuccessScreenState(data = movies)
         }
     }
@@ -37,5 +37,9 @@ class MoviesViewModel @AssistedInject constructor(
     @AssistedFactory
     interface Factory {
         fun create(): MoviesViewModel
+    }
+
+    private companion object {
+        private const val EMPTY = ""
     }
 }

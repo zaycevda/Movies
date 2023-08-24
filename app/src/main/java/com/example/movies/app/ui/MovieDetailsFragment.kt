@@ -15,7 +15,8 @@ import com.bumptech.glide.Glide
 import com.example.movies.R
 import com.example.movies.app.di.holder.MoviesComponentHolder
 import com.example.movies.app.di.utils.featureComponent
-import com.example.movies.app.ui.utils.showToast
+import com.example.movies.app.ui.adapter.ActorsAdapter
+import com.example.movies.app.ui.util.showToast
 import com.example.movies.app.viewmodel.utils.lazyViewModel
 import com.example.movies.databinding.FragmentMovieDetailsBinding
 import kotlinx.coroutines.launch

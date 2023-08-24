@@ -1,5 +1,6 @@
-package com.example.movies.data.net.util
+package com.example.movies.data.util
 
+import com.example.movies.data.db.entity.MovieEntity
 import com.example.movies.data.net.model.MovieDetailModel
 import com.example.movies.data.net.model.MovieModel
 import com.example.movies.data.net.model.StaffModel
@@ -36,4 +37,20 @@ fun StaffModel.toStaff() =
         image = image,
         name = name,
         character = character
+    )
+
+fun Movie.toMovieEntity() =
+    MovieEntity(
+        id = id,
+        preview = preview,
+        title = title,
+        rating = rating
+    )
+
+fun MovieEntity.toMovie() =
+    Movie(
+        id = id,
+        preview = preview,
+        title = title,
+        rating = rating
     )

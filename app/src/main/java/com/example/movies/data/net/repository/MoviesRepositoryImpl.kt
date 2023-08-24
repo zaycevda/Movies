@@ -1,9 +1,9 @@
 package com.example.movies.data.net.repository
 
 import com.example.movies.data.net.service.MoviesApi
-import com.example.movies.data.net.util.toMovie
-import com.example.movies.data.net.util.toMovieDetail
-import com.example.movies.data.net.util.toStaff
+import com.example.movies.data.util.toMovie
+import com.example.movies.data.util.toMovieDetail
+import com.example.movies.data.util.toStaff
 import com.example.movies.domain.model.Actor
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.model.MovieDetail

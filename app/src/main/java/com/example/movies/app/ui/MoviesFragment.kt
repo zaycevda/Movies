@@ -13,7 +13,8 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.movies.R
 import com.example.movies.app.di.holder.MoviesComponentHolder
 import com.example.movies.app.di.utils.featureComponent
-import com.example.movies.app.ui.utils.showToast
+import com.example.movies.app.ui.adapter.MoviesAdapter
+import com.example.movies.app.ui.util.showToast
 import com.example.movies.app.viewmodel.utils.lazyViewModel
 import com.example.movies.databinding.FragmentMoviesBinding
 import kotlinx.coroutines.launch
@@ -34,6 +35,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
+        viewModel.getMoviesFromDb()
         getMovies()
         initSearch()
     }
@@ -53,8 +55,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         binding.rvMovies.adapter = adapter
     }
 
-    private fun getMovies(keyword: String = EMPTY) {
-        viewModel.getMovies(keyword = keyword)
+    private fun getMovies() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.movies.collect { state ->
@@ -78,15 +79,11 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                 override fun onQueryTextSubmit(query: String?) = false
                 override fun onQueryTextChange(newText: String?): Boolean {
                     newText?.let { keyword ->
-                        getMovies(keyword = keyword)
+                        viewModel.getMovies(keyword = keyword)
                     }
                     return false
                 }
             }
         )
-    }
-
-    private companion object {
-        private const val EMPTY = ""
     }
 }

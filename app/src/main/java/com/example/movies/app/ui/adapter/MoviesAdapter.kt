@@ -1,4 +1,4 @@
-package com.example.movies.app.ui
+package com.example.movies.app.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +12,7 @@ import com.example.movies.R
 import com.example.movies.databinding.ItemMovieBinding
 import com.example.movies.domain.model.Movie
 
-typealias OnClick = (id: Long) -> Unit
+private typealias OnClick = (id: Long) -> Unit
 
 class MoviesAdapter(private val onClick: OnClick) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 

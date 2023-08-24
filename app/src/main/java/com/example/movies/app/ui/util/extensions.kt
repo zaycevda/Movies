@@ -1,4 +1,4 @@
-package com.example.movies.app.ui.utils
+package com.example.movies.app.ui.util
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment

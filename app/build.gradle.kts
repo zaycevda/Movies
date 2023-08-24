@@ -53,14 +53,15 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
 
     //dagger
-    implementation("com.google.dagger:dagger:2.46.1")
     kapt("com.google.dagger:dagger-compiler:2.46.1")
+    implementation("com.google.dagger:dagger:2.46.1")
 
     // gson
     implementation("com.google.code.gson:gson:2.9.0")
 
-    implementation("com.github.bumptech.glide:glide:4.15.1")
+    // glide
     kapt("com.github.bumptech.glide:compiler:4.14.2")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
 
     // ktx
     implementation("androidx.core:core-ktx:1.10.1")
@@ -74,6 +75,14 @@ dependencies {
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // Room
+    kapt("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
+    implementation("androidx.room:room-runtime:2.5.2")
+
+    // splashscreen
+    implementation ("androidx.core:core-splashscreen:1.0.0-beta02")
 
     // test
     testImplementation("junit:junit:4.13.2")

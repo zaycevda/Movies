@@ -1,5 +1,6 @@
 package com.example.movies.app.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies.domain.usecase.AddMoviesUseCase
@@ -22,8 +23,9 @@ class MainViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch {
             val movies = getMoviesUseCase.execute()
-            delay(timeMillis = DELAY)
             addMoviesUseCase.execute(movies = movies)
+            delay(timeMillis = DELAY)
+            Log.d("bebra", "main movies = $movies")
             _isLoading.value = false
         }
     }

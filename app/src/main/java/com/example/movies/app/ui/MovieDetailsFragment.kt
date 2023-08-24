@@ -76,8 +76,16 @@ class MovieDetailsFragment : Fragment(R.layout.fragment_movie_details) {
                     state.on(
                         error = { throwable ->
                             showToast(message = throwable.message.toString())
+                            binding.pbMovieDetails.isGone = true
+                            binding.svMovieDetails.isGone = false
+                        },
+                        loading = {
+                            binding.pbMovieDetails.isGone = false
+                            binding.svMovieDetails.isGone = true
                         },
                         success = { movieDetail ->
+                            binding.pbMovieDetails.isGone = true
+                            binding.svMovieDetails.isGone = false
                             initScreen(movieDetail)
                             openTrailer(movieDetail.video)
 

@@ -1,5 +1,6 @@
 package com.example.movies.app.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movies.app.ui.util.ScreenState
@@ -13,6 +14,7 @@ import com.example.movies.domain.usecase.GetMoviesUseCase
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -44,6 +46,14 @@ class MoviesViewModel @AssistedInject constructor(
 
         viewModelScope.launch(context = exceptionHandler) {
             _movies.value = LoadingScreenState()
+            /*
+            if user launch app first time, movies can take a long time to load from server
+            and this method can execute earlier, when db is empty yet
+            so we select movies from db until get them
+            */
+            while (getMoviesFromDbUseCase.execute().isEmpty()) {
+                delay(DELAY)
+            }
             val movies = getMoviesFromDbUseCase.execute()
             _movies.value = SuccessScreenState(data = movies)
         }
@@ -56,5 +66,6 @@ class MoviesViewModel @AssistedInject constructor(
 
     private companion object {
         private const val EMPTY = ""
+        private const val DELAY = 500L // 0.5 seconds
     }
 }

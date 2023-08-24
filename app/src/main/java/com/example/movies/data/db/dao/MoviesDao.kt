@@ -7,9 +7,9 @@ import androidx.room.Query
 import com.example.movies.data.db.entity.MovieEntity
 
 @Dao
-interface MovieDao {
+interface MoviesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addMovies(movies: List<MovieEntity>)
+    suspend fun addMovies(movieEntities: List<MovieEntity>)
     @Query("SELECT * FROM movies")
     suspend fun getMovies(): List<MovieEntity>
 }

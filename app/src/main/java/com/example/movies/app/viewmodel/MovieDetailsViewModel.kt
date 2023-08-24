@@ -19,7 +19,7 @@ class MovieDetailsViewModel @AssistedInject constructor(
     private val getMovieDetailUseCase: GetMovieDetailUseCase
 ) : ViewModel() {
 
-    private val _movieDetail = MutableStateFlow<ScreenState<MovieDetail>>(LoadingScreenState())
+    private val _movieDetail = MutableStateFlow<ScreenState<MovieDetail>>(value = LoadingScreenState())
     val movieDetail = _movieDetail.asStateFlow()
 
     fun getMovieDetail(id: Long) {
@@ -27,7 +27,7 @@ class MovieDetailsViewModel @AssistedInject constructor(
             _movieDetail.value = ErrorScreenState(throwable = throwable)
         }
 
-        viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(context = exceptionHandler) {
             _movieDetail.value = LoadingScreenState()
             val movieDetail = getMovieDetailUseCase.execute(id = id)
             _movieDetail.value = SuccessScreenState(data = movieDetail)

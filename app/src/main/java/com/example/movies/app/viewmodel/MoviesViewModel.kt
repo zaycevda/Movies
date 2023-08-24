@@ -22,7 +22,7 @@ class MoviesViewModel @AssistedInject constructor(
     private val getMoviesFromDbUseCase: GetMoviesFromDbUseCase
 ) : ViewModel() {
 
-    private val _movies = MutableStateFlow<ScreenState<List<Movie>>>(LoadingScreenState())
+    private val _movies = MutableStateFlow<ScreenState<List<Movie>>>(value = LoadingScreenState())
     val movies = _movies.asStateFlow()
 
     fun getMovies(order: String = Order.NUM_VOTE.name, keyword: String = EMPTY) {
@@ -30,7 +30,7 @@ class MoviesViewModel @AssistedInject constructor(
             _movies.value = ErrorScreenState(throwable = throwable)
         }
 
-        viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(context = exceptionHandler) {
             _movies.value = LoadingScreenState()
             val movies = getMoviesUseCase.execute(order = order, keyword = keyword)
             _movies.value = SuccessScreenState(data = movies)
@@ -42,7 +42,7 @@ class MoviesViewModel @AssistedInject constructor(
             _movies.value = ErrorScreenState(throwable = throwable)
         }
 
-        viewModelScope.launch(exceptionHandler) {
+        viewModelScope.launch(context = exceptionHandler) {
             _movies.value = LoadingScreenState()
             val movies = getMoviesFromDbUseCase.execute()
             _movies.value = SuccessScreenState(data = movies)

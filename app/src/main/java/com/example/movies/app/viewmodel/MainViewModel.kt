@@ -22,8 +22,8 @@ class MainViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch {
             val movies = getMoviesUseCase.execute()
-            addMoviesUseCase.execute(movies)
             delay(timeMillis = DELAY)
+            addMoviesUseCase.execute(movies = movies)
             _isLoading.value = false
         }
     }

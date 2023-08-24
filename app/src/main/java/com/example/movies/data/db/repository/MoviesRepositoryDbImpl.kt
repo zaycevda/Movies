@@ -8,7 +8,7 @@ import com.example.movies.domain.repository.MoviesRepositoryDb
 
 class MoviesRepositoryDbImpl(db: RoomDb) : MoviesRepositoryDb {
 
-    private val dao = db.movieDao()
+    private val dao = db.moviesDao()
 
     override suspend fun getMoviesFromDb(): List<Movie> {
         val movieEntities = dao.getMovies()
@@ -17,6 +17,6 @@ class MoviesRepositoryDbImpl(db: RoomDb) : MoviesRepositoryDb {
 
     override suspend fun addMovies(movies: List<Movie>) {
         val movieEntities = movies.map { movie -> movie.toMovieEntity() }
-        dao.addMovies(movieEntities)
+        dao.addMovies(movieEntities = movieEntities)
     }
 }

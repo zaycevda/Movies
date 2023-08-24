@@ -6,10 +6,9 @@ import com.example.movies.app.di.component.MoviesComponent
 import com.example.movies.app.di.module.MoviesModule
 
 object MoviesComponentHolder : FeatureComponentHolder<MoviesComponent>() {
-    override fun build(): MoviesComponent {
-        return DaggerMoviesComponent.builder()
+    override fun build(): MoviesComponent =
+        DaggerMoviesComponent.builder()
             .appComponent(App.component)
             .moviesModule(MoviesModule())
             .build()
-    }
 }

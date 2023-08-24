@@ -49,4 +49,18 @@
         app:layout_constraintEnd_toStartOf="@id/tv_rating"
         app:layout_constraintTop_toTopOf="@id/tv_rating" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/iv_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:padding="0dp"
+        app:iconPadding="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_star"
+        app:layout_goneMarginTop="4dp"
+        tools:icon="@drawable/ic_favorite_disabled" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

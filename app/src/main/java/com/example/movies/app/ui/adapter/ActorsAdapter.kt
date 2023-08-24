@@ -18,7 +18,9 @@ class ActorsAdapter : RecyclerView.Adapter<ActorsAdapter.ViewHolder>() {
 
     var actors: List<Actor>
         get() = differ.currentList
-        set(value) = differ.submitList(value)
+        set(value) {
+            differ.submitList(value)
+        }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding by viewBinding(ItemActorBinding::bind)

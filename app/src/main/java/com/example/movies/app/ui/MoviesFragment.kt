@@ -11,6 +11,8 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.movies.R
+import com.example.movies.app.di.component.FavoritesComponent
+import com.example.movies.app.di.holder.FavoritesComponentHolder
 import com.example.movies.app.di.holder.MoviesComponentHolder
 import com.example.movies.app.di.utils.featureComponent
 import com.example.movies.app.ui.adapter.MoviesAdapter
@@ -24,10 +26,14 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private val binding by viewBinding(FragmentMoviesBinding::bind)
 
-    private val component by featureComponent(MoviesComponentHolder)
+    private val favoritesComponent by featureComponent(FavoritesComponentHolder)
+    private val favoritesViewModel by lazyViewModel {
+        favoritesComponent.favoritesViewModel().create()
+    }
 
-    private val viewModel by lazyViewModel {
-        component.moviesViewModel().create()
+    private val moviesComponent by featureComponent(MoviesComponentHolder)
+    private val moviesViewModel by lazyViewModel {
+        moviesComponent.moviesViewModel().create()
     }
 
     private var adapter: MoviesAdapter? = null
@@ -35,8 +41,9 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getFavorites()
         initAdapter()
-        viewModel.getMoviesFromDb()
+        moviesViewModel.getMoviesFromDb()
         getMovies()
         initSearch()
         initSorting()
@@ -49,33 +56,59 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
 
     private fun initSorting() {
         binding.fabByRating.setOnClickListener {
-            viewModel.getMovies(order = Order.RATING.name)
+            moviesViewModel.getMovies(order = Order.RATING.name)
         }
         binding.fabByNumVote.setOnClickListener {
-            viewModel.getMovies(order = Order.NUM_VOTE.name)
+            moviesViewModel.getMovies(order = Order.NUM_VOTE.name)
         }
         binding.favByYear.setOnClickListener {
-            viewModel.getMovies(order = Order.YEAR.name)
+            moviesViewModel.getMovies(order = Order.YEAR.name)
+        }
+    }
+
+    private fun getFavorites() {
+        favoritesViewModel.getFavorites()
+        lifecycleScope.launch {
+            repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+                favoritesViewModel.favorites.collect { state ->
+                    state.on(
+                        error = { throwable ->
+                            showToast(message = throwable.message.toString())
+                        },
+                        success = { favorites ->
+                            adapter?.favorites = favorites
+                        }
+                    )
+                }
+            }
         }
     }
 
     private fun initAdapter() {
-        adapter = MoviesAdapter { id ->
-            findNavController().navigate(
-                R.id.action_moviesFragment_to_movieDetailsFragment,
-                bundleOf(MovieDetailsFragment.MOVIE_ID_KEY to id)
-            )
-        }
+        adapter = MoviesAdapter(
+            onClick = { id ->
+                findNavController().navigate(
+                    R.id.action_moviesFragment_to_movieDetailsFragment,
+                    bundleOf(MovieDetailsFragment.MOVIE_ID_KEY to id)
+                )
+            },
+            onLikeAdd = { favorite ->
+                favoritesViewModel.addFavorite(favorite = favorite)
+            },
+            onLikeDelete = { id ->
+                favoritesViewModel.deleteFavorite(id = id)
+            }
+        )
         binding.rvMovies.adapter = adapter
     }
 
     private fun getMovies() {
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.movies.collect { state ->
+            repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+                moviesViewModel.movies.collect { state ->
                     state.on(
                         error = { throwable ->
-                            showToast(throwable.message.toString())
+                            showToast(message = throwable.message.toString())
                         },
                         success = { movies ->
                             adapter?.movies = movies
@@ -93,7 +126,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                 override fun onQueryTextSubmit(query: String?) = false
                 override fun onQueryTextChange(newText: String?): Boolean {
                     newText?.let { keyword ->
-                        viewModel.getMovies(keyword = keyword)
+                        moviesViewModel.getMovies(keyword = keyword)
                     }
                     return false
                 }

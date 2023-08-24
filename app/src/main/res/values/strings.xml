@@ -8,4 +8,6 @@
     <string name="by_rating">По рейтингу</string>
     <string name="by_num_vote">По кол-ву голосов</string>
     <string name="by_year">По году выхода</string>
+    <string name="main">Главная</string>
+    <string name="favorite">Избранное</string>
 </resources>

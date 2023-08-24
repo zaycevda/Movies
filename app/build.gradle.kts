@@ -74,6 +74,7 @@ dependencies {
 
     // navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")
+    implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
 
     // retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

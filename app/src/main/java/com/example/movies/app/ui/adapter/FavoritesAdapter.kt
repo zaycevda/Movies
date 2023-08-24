@@ -9,49 +9,36 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.example.movies.R
+import com.example.movies.app.ui.adapter.FavoritesAdapter.ViewHolder
 import com.example.movies.databinding.ItemMovieBinding
 import com.example.movies.domain.model.Favorite
-import com.example.movies.domain.model.Movie
 
-typealias OnClick = (id: Long) -> Unit
-typealias OnLikeAdd = (favorite: Favorite) -> Unit
-typealias OnLikeDelete = (id: Long) -> Unit
-
-class MoviesAdapter(
+class FavoritesAdapter(
     private val onClick: OnClick,
     private val onLikeAdd: OnLikeAdd,
     private val onLikeDelete: OnLikeDelete
-) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<ViewHolder>() {
 
     private val differ = AsyncListDiffer(this, DiffUtilCallback())
 
-    var movies: List<Movie>
+    var favorites: List<Favorite>
         get() = differ.currentList
         set(value) {
             differ.submitList(value)
         }
 
-    var favorites = listOf<Favorite>()
-
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val binding by viewBinding(vbFactory = ItemMovieBinding::bind)
+        private val binding by viewBinding(ItemMovieBinding::bind)
 
-        fun bind(movie: Movie) {
-            Glide.with(binding.root.context).load(movie.preview).into(binding.ivPreview)
-            binding.tvTitle.text = movie.title
-            binding.tvRating.text = movie.rating.toString()
+        fun bind(favorite: Favorite) {
+            Glide.with(binding.root.context).load(favorite.preview).into(binding.ivPreview)
+            binding.tvTitle.text = favorite.title
+            binding.tvRating.text = favorite.rating.toString()
 
             itemView.setOnClickListener {
-                onClick(movie.id)
+                onClick(favorite.id)
             }
 
-            val favorite =
-                Favorite(
-                    id = movie.id,
-                    preview = movie.preview,
-                    title = movie.title,
-                    rating = movie.rating
-                )
             initFavorites(favorite = favorite)
             workToFavorite(favorite = favorite)
         }
@@ -87,14 +74,14 @@ class MoviesAdapter(
         return ViewHolder(view = view)
     }
 
-    override fun getItemCount() = movies.count()
+    override fun getItemCount() = favorites.count()
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(movie = movies[position])
+        holder.bind(favorite = favorites[position])
     }
 
-    private class DiffUtilCallback : DiffUtil.ItemCallback<Movie>() {
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: Movie, newItem: Movie) = oldItem == newItem
+    private class DiffUtilCallback : DiffUtil.ItemCallback<Favorite>() {
+        override fun areItemsTheSame(oldItem: Favorite, newItem: Favorite) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: Favorite, newItem: Favorite) = oldItem == newItem
     }
 }

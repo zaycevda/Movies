@@ -52,9 +52,12 @@ dependencies {
     // appcompat
     implementation("androidx.appcompat:appcompat:1.6.1")
 
-    //dagger
+    // dagger
     kapt("com.google.dagger:dagger-compiler:2.46.1")
     implementation("com.google.dagger:dagger:2.46.1")
+
+    // expandable floatingActionButton
+    implementation("com.getbase:floatingactionbutton:1.10.1")
 
     // gson
     implementation("com.google.code.gson:gson:2.9.0")
@@ -76,12 +79,12 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    // Room
+    // room
     kapt("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
     implementation("androidx.room:room-runtime:2.5.2")
 
-    // splashscreen
+    // splashScreen
     implementation ("androidx.core:core-splashscreen:1.0.0-beta02")
 
     // test
@@ -93,6 +96,6 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-    // viewbinding delegate
+    // viewBinding delegate
     implementation("com.github.kirich1409:viewbindingpropertydelegate-noreflection:1.5.9")
 }

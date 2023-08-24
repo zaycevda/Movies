@@ -6,6 +6,7 @@ import com.example.movies.app.ui.util.ScreenState
 import com.example.movies.app.ui.util.ScreenState.ErrorScreenState
 import com.example.movies.app.ui.util.ScreenState.LoadingScreenState
 import com.example.movies.app.ui.util.ScreenState.SuccessScreenState
+import com.example.movies.data.util.Order
 import com.example.movies.domain.model.Movie
 import com.example.movies.domain.usecase.GetMoviesFromDbUseCase
 import com.example.movies.domain.usecase.GetMoviesUseCase
@@ -24,14 +25,14 @@ class MoviesViewModel @AssistedInject constructor(
     private val _movies = MutableStateFlow<ScreenState<List<Movie>>>(LoadingScreenState())
     val movies = _movies.asStateFlow()
 
-    fun getMovies(keyword: String = EMPTY) {
+    fun getMovies(order: String = Order.NUM_VOTE.name, keyword: String = EMPTY) {
         val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
             _movies.value = ErrorScreenState(throwable = throwable)
         }
 
         viewModelScope.launch(exceptionHandler) {
             _movies.value = LoadingScreenState()
-            val movies = getMoviesUseCase.execute(keyword = keyword)
+            val movies = getMoviesUseCase.execute(order = order, keyword = keyword)
             _movies.value = SuccessScreenState(data = movies)
         }
     }

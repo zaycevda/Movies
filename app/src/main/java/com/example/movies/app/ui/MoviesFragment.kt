@@ -16,6 +16,7 @@ import com.example.movies.app.di.utils.featureComponent
 import com.example.movies.app.ui.adapter.MoviesAdapter
 import com.example.movies.app.ui.util.showToast
 import com.example.movies.app.viewmodel.utils.lazyViewModel
+import com.example.movies.data.util.Order
 import com.example.movies.databinding.FragmentMoviesBinding
 import kotlinx.coroutines.launch
 
@@ -38,11 +39,24 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
         viewModel.getMoviesFromDb()
         getMovies()
         initSearch()
+        initSorting()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         adapter = null
+    }
+
+    private fun initSorting() {
+        binding.fabByRating.setOnClickListener {
+            viewModel.getMovies(order = Order.RATING.name)
+        }
+        binding.fabByNumVote.setOnClickListener {
+            viewModel.getMovies(order = Order.NUM_VOTE.name)
+        }
+        binding.favByYear.setOnClickListener {
+            viewModel.getMovies(order = Order.YEAR.name)
+        }
     }
 
     private fun initAdapter() {

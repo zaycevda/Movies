@@ -10,8 +10,8 @@ import com.example.movies.domain.model.MovieDetail
 import com.example.movies.domain.repository.MoviesRepository
 
 class MoviesRepositoryImpl(private val api: MoviesApi) : MoviesRepository {
-    override suspend fun getMovies(keyword: String): List<Movie> {
-        val moviesResponse = api.getMovies(keyword = keyword)
+    override suspend fun getMovies(order: String, keyword: String): List<Movie> {
+        val moviesResponse = api.getMovies(order = order, keyword = keyword)
         val movieModels = moviesResponse.movies
         return movieModels.map { movieModel -> movieModel.toMovie() }
     }

@@ -5,6 +5,7 @@ import com.example.movies.data.net.model.MovieDetailModel
 import com.example.movies.data.net.model.MoviesResponse
 import com.example.movies.data.net.model.StaffModel
 import com.example.movies.data.net.model.VideoResponse
+import com.example.movies.data.util.Order
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -17,6 +18,7 @@ interface MoviesApi {
     )
     @GET(MOVIES)
     suspend fun getMovies(
+        @Query(ORDER) order: String = Order.NUM_VOTE.name,
         @Query(KEYWORD) keyword: String = EMPTY
     ): MoviesResponse
 
@@ -51,6 +53,7 @@ interface MoviesApi {
         private const val KEYWORD = "keyword"
         private const val MOVIES = "/api/v2.2/films"
         private const val MOVIE_DETAIL = "/api/v2.2/films/{id}"
+        private const val ORDER = "order"
         private const val STAFF = "/api/v1/staff"
         private const val VIDEOS = "/api/v2.2/films/{id}/videos"
         private const val X_API_KEY = "X-API-KEY"

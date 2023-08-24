@@ -45,7 +45,7 @@ interface MoviesApi {
 
     private companion object {
         private const val ACCEPT = "accept"
-        private const val API_KEY = "34b148dc-d82d-4c75-9c96-56f6cdcc9418"
+        private const val API_KEY = "c70bd458-6a45-4a83-b937-1414707bbcc6"
         private const val EMPTY = ""
         private const val FILM_ID = "filmId"
         private const val ID = "id"

@@ -11,7 +11,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.movies.R
-import com.example.movies.app.di.component.FavoritesComponent
 import com.example.movies.app.di.holder.FavoritesComponentHolder
 import com.example.movies.app.di.holder.MoviesComponentHolder
 import com.example.movies.app.di.utils.featureComponent
@@ -109,6 +108,7 @@ class MoviesFragment : Fragment(R.layout.fragment_movies) {
                     state.on(
                         error = { throwable ->
                             showToast(message = throwable.message.toString())
+                            moviesViewModel.getMoviesFromDb()
                         },
                         success = { movies ->
                             adapter?.movies = movies

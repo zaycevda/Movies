@@ -30,8 +30,8 @@ class MainViewModel @AssistedInject constructor(
                     listOf()
                 }
                 addMoviesUseCase.execute(movies = movies)
-                delay(timeMillis = DELAY)
             }
+            delay(timeMillis = DELAY)
             _isLoading.value = false
         }
     }
